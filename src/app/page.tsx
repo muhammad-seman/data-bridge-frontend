@@ -1,6 +1,7 @@
 'use client';
 
 import { UploadWizard } from '@/components/upload/upload-wizard';
+import { MappingWizard } from '@/components/mapping/mapping-wizard';
 import { useAppStore } from '@/store';
 
 export default function Home() {
@@ -8,6 +9,10 @@ export default function Home() {
 
   const handleUploadComplete = () => {
     console.log('Upload wizard completed!');
+  };
+
+  const handleMappingComplete = () => {
+    console.log('Mapping wizard completed!');
   };
 
   return (
@@ -40,18 +45,22 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="py-8">
-        {currentStep === 'upload' ? (
+        {currentStep === 'upload' && (
           <UploadWizard onComplete={handleUploadComplete} />
-        ) : (
+        )}
+        
+        {currentStep === 'mapping' && (
+          <MappingWizard onComplete={handleMappingComplete} />
+        )}
+        
+        {(currentStep === 'visualization' || currentStep === 'export') && (
           <div className="max-w-4xl mx-auto p-6">
             <div className="text-center">
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                {currentStep === 'mapping' && 'Column Mapping'}
                 {currentStep === 'visualization' && 'Data Visualization'}
                 {currentStep === 'export' && 'Export & Reports'}
               </h2>
               <p className="text-gray-600 mb-8">
-                {currentStep === 'mapping' && 'Map columns from different files to create unified datasets'}
                 {currentStep === 'visualization' && 'Create charts and dashboards from your integrated data'}
                 {currentStep === 'export' && 'Generate reports and export your insights'}
               </p>
